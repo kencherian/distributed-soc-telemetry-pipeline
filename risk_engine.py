@@ -1,12 +1,31 @@
 import mysql.connector
-
+import time
+from mysql.connector import errors
 def connect_to_db():
-    return mysql.connector.connect(
-        host="localhost", 
-        user="root", 
-        password="", 
-        database="security_platform"
-    )
+    max_retries = 5
+    retry_delay = 3 # seconds
+    
+    print("[*] Connecting to containerized database...")
+    for attempt in range(1, max_retries + 1):
+        try:
+            connection = mysql.connector.connect(
+                host="localhost",
+                user="root",
+                password="EnterprisePassword2026",
+                database="security_platform"
+            )
+            if connection.is_connected():
+                print("[+] Successfully authenticated with Docker MySQL instance.")
+                return connection
+        except errors.InterfaceError:
+            print(f"[!] Database booting up... Retry attempt {attempt}/{max_retries} in {retry_delay}s...")
+            time.sleep(retry_delay)
+        except errors.ProgrammingError as e:
+            # Catches missing database errors if schema hasn't finished running
+            print(f"[!] Database structure initializing... Retry in {retry_delay}s... ({e})")
+            time.sleep(retry_delay)
+            
+    raise Exception("[❌] Critical Error: Could not connect to the containerized database after multiple attempts.")
 
 def process_asset_risk_assessment():
     db = connect_to_db()

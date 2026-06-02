@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  # Service 1: The Database Engine
+  threat-db:
+    image: mysql:8.0
+    container_name: threat-telemetry-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "EnterprisePassword2026"
+      MYSQL_DATABASE: "security_platform"
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/schema.sql
+
+  # Service 2: The UI Management Dashboard
+  threat-dashboard:
+    image: php:8.1-apache
+    container_name: threat-telemetry-ui
+    restart: always
+    ports:
+      - "8081:80" # Map host port 8081 to container port 80 to avoid XAMPP port conflicts
+    volumes:
+      - ./dashboard:/var/www/html/ # Mounts your local dashboard folder directly into Apache
+    depends_on:
+      - threat-db
+    # This installs the native MySQL extensions for PHP inside the container on startup
+    entrypoint: >
+      sh -c "docker-php-ext-install mysqli && apache2-foreground"
