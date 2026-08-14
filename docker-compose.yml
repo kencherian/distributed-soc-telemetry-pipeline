@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # Service 1: The Database Engine
+  # Service 1: The Database Engine & Threat DB
   threat-db:
     image: mysql:8.0
     container_name: threat-telemetry-db
