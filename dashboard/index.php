@@ -20,7 +20,7 @@ if (!$conn || $conn->connect_error) {
     die("<div class='alert alert-danger m-5'><strong>🚨 SIEM Database Connection Failure</strong></div>");
 }
 
-// Query 1: Assets Registry
+// Query 1: Assets Registry file
 $asset_sql = "SELECT a.id, a.ip_address, a.hostname, a.last_scanned, 
                      GROUP_CONCAT(DISTINCT o.port_number SEPARATOR ', ') as open_ports,
                      COUNT(DISTINCT c.cve_id) as exposure_count,
