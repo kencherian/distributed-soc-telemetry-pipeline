@@ -55,7 +55,7 @@ def save_results_to_database(ip, open_ports):
 if __name__ == "__main__":
     target_ip = "1.1.1.1"
     
-    # Run the scanner
+    # Run the scanner engine
     found_ports = scan_target(target_ip)
     
     # Save the results
