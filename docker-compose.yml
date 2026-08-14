@@ -25,6 +25,6 @@ services:
       - ./dashboard:/var/www/html/ # Mounts your local dashboard folder directly into Apache
     depends_on:
       - threat-db
-    # This installs the native MySQL extensions for PHP inside the container on startup
+    # This installs the native MySQL extensions for PHP inside the container  atstartup
     entrypoint: >
       sh -c "docker-php-ext-install mysqli && apache2-foreground"
