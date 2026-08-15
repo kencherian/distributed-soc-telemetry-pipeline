@@ -8,7 +8,7 @@ A containerized, full-stack security engineering architecture designed to perfor
 
 The platform utilizes a decoupled microservices design orchestrated natively within an isolated containerized infrastructure:
 
-1. **Reconnaissance Engine (Python Backend):** Leverages low-level network socket structures to audit endpoint vulnerability target environments.
+1. **Reconnaissance Engine (Python Backend):** Takes advantage of low-level network socket structures to audit endpoint vulnerability target environments.
 2. **Relational Database Cluster (Containerized MySQL):** Normalizes asset fingerprints and registers identified open ports using a strict one-to-many schema mapping.
 3. **Detection & Signature Daemon (YARA / Python):** Performs active file-system integrity checks against custom rule matrices, trapping active Indicators of Compromise (IoCs) like web shell backdoor code.
 4. **Centralized Management Console (PHP/Apache Container):** Collects processed threat streams to render real-time asset risk metrics and cryptographic intrusion feeds.
